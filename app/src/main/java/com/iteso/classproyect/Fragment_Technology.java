@@ -39,9 +39,9 @@ public class Fragment_Technology extends android.support.v4.app.Fragment {
 
         //ArrayList<ItemProduct> products = new ArrayList<ItemProduct>();
         products = new ArrayList<>();
-        products.add(new ItemProduct("Mac", "BestBuy", "+52 3334564759", "Best Buy Plaza Ciudadela ", getResources().getDrawable(R.drawable.mac),1));
-        products.add(new ItemProduct("AlienWare de Miguel", "DELL", "+52 3318275480", "DELL, Punto de Venta zapopan", getResources().getDrawable(R.drawable.alienware),2));
-        products.add(new ItemProduct("Lanix", "Saint Johny", "+52 3321349087", "Mercado San Juan de Dios, Punto de venta", getResources().getDrawable(R.drawable.lanix),3));
+        products.add(new ItemProduct("Mac", "BestBuy", "+52 3334564759", "Best Buy Plaza Ciudadela ", 0,1));
+        products.add(new ItemProduct("AlienWare de Miguel", "DELL", "+52 3318275480", "DELL, Punto de Venta zapopan", 1,2));
+        products.add(new ItemProduct("Lanix", "Saint Johny", "+52 3321349087", "Mercado San Juan de Dios, Punto de venta", 2,3));
 
 
         adapter = new AdapterProduct(getActivity(), products,getContext());

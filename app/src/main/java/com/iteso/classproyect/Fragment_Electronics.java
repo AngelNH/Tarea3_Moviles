@@ -34,8 +34,8 @@ public class Fragment_Electronics extends android.support.v4.app.Fragment {
 
         //ArrayList<ItemProduct> electronics = new ArrayList<>();
         electronics = new ArrayList<>();
-        electronics.add(new ItemProduct("Whirpool EasyWash","Liverpool","+52 4432435678","Plaza Galerías Guadalajara", getResources().getDrawable(R.drawable.lavadora),4));
-        electronics.add(new ItemProduct("Beats Stereo Plus","Fabricas de Francia", "+52 2343234567","La Gran Plaza Fashion Mall Guadalajara", getResources().getDrawable(R.drawable.estereo),5));
+        electronics.add(new ItemProduct("Whirpool EasyWash","Liverpool","+52 4432435678","Plaza Galerías Guadalajara", 6,4));
+        electronics.add(new ItemProduct("Beats Stereo Plus","Fabricas de Francia", "+52 2343234567","La Gran Plaza Fashion Mall Guadalajara", 5,5));
 
         adapter = new AdapterProduct(getActivity(), electronics,getContext());
         recyclerView.setAdapter(adapter);

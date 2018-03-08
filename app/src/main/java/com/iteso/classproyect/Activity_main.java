@@ -64,45 +64,7 @@ public class Activity_main extends AppCompatActivity {
 
 
     }
-    Fragment_Home fragmentHome;
-    Fragment_Technology fragmentTechnology;
-    Fragment_Electronics fragmentElectronics;
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Activity_main.super.onActivityResult(requestCode, resultCode, data);
-        Log.e("RESULT","Entered the activity result");
-        switch (requestCode){
-            case 6://Home fragment
-            case 7:
-                if (resultCode == Activity.RESULT_OK) {
-                    ItemProduct item = data.getParcelableExtra("ITEM");
-                    if (item != null) {
-                        fragmentHome.onActivityResult(requestCode, resultCode, data);
-                    }
-                }
-                break;
-            case 4://Electronics fragment
-            case 5:
-                if (resultCode == Activity.RESULT_OK) {
-                    ItemProduct item = data.getParcelableExtra("ITEM");
-                    if (item != null) {
-                        fragmentElectronics.onActivityResult(requestCode, resultCode, data);
-                    }
-                }
-                break;
-            case 1:
-            case 2:
-            case 3:
-                if (resultCode == Activity.RESULT_OK) {
-                    Log.e("RESULT","Entered the case for the fragment technology");
-                    //ItemProduct item = data.getParcelableExtra("ITEM");
-                    //if (item != null) {
-                        fragmentTechnology.onActivityResult(requestCode, resultCode, data);
-                    //}
-                }
-                break;
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -176,7 +138,9 @@ public class Activity_main extends AppCompatActivity {
             return rootView;
         }
     }
-
+    Fragment_Home fragmentHome;
+    Fragment_Technology fragmentTechnology;
+    Fragment_Electronics fragmentElectronics;
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -192,9 +156,21 @@ public class Activity_main extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position){
-                case 0: return new Fragment_Technology();
-                case 1: return new Fragment_Home();
-                case 2: return new Fragment_Electronics();
+                case 0:
+                    if (fragmentTechnology == null){
+                        fragmentTechnology = new Fragment_Technology();
+                    }
+                    return fragmentTechnology;
+                case 1:
+                    if (fragmentHome == null){
+                        fragmentHome = new Fragment_Home();
+                    }
+                    return fragmentHome;
+                case 2:
+                    if (fragmentElectronics == null){
+                    fragmentElectronics = new Fragment_Electronics();
+                }
+                    return fragmentElectronics;
                 default: return new Fragment_Technology();
             }
         }
@@ -223,6 +199,50 @@ public class Activity_main extends AppCompatActivity {
             intent.putExtra("PHONE","3318275480");
             sendBroadcast(intent);
 
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Activity_main.super.onActivityResult(requestCode, resultCode, data);
+        Log.e("RESULT","Entered the activity result with request code: "+requestCode);
+        switch (requestCode){
+            case 1:
+            case 2:
+            case 3:
+                if (resultCode == Activity.RESULT_OK) {
+                    Log.e("RESULT", "Entered the case for the fragment technology");
+                    //ItemProduct item = data.getParcelableExtra("ITEM");
+                    //if (item != null) {
+                    fragmentTechnology.onActivityResult(requestCode, resultCode, data);
+                    //}
+                }
+                break;
+            case 4://Electronics fragment
+            case 5:
+                Log.e("RESULT","Entered the case for the fragment electronics");
+                if (resultCode == Activity.RESULT_OK) {
+                    ItemProduct item = data.getParcelableExtra("ITEM");
+                    if (item != null) {
+                        fragmentElectronics.onActivityResult(requestCode, resultCode, data);
+                    }
+                }
+                break;
+
+            case 6://Home fragment
+            case 7:
+                Log.e("RESULT","Entered the case for the fragment home");
+                if (resultCode == Activity.RESULT_OK) {
+                    ItemProduct item = data.getParcelableExtra("ITEM");
+                    if (item != null) {
+                        fragmentHome.onActivityResult(requestCode, resultCode, data);
+                    }
+                }
+                break;
+            default:
+                Log.e("RESULT","Entered the default case");
+                break;
         }
     }
 }

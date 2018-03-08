@@ -73,7 +73,32 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
         holder.mStore.setText(products.get(position).getStore());
         holder.mLocation.setText((products.get(position).getLocation()));
         holder.mPhone.setText((products.get(position).getPhone()));
-        holder.mImage.setImageDrawable(products.get(position).getImage());
+        switch (products.get(position).getImageNumber()){
+            case 0:
+                holder.mImage.setImageResource(R.drawable.mac);
+                break;
+            case 1:
+                holder.mImage.setImageResource(R.drawable.alienware);
+                break;
+            case 2:
+                holder.mImage.setImageResource(R.drawable.lanix);
+                break;
+            case 3:
+                holder.mImage.setImageResource(R.drawable.cama);
+                break;
+            case 4:
+                holder.mImage.setImageResource(R.drawable.sillon);
+                break;
+            case 5:
+                holder.mImage.setImageResource(R.drawable.estereo);
+                break;
+            case 6:
+                holder.mImage.setImageResource(R.drawable.lavadora);
+                break;
+            default:
+                holder.mImage.setImageResource(R.drawable.alienware);
+                break;
+        }
 
         holder.mPhone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +116,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
                        products.get(position).getStore(),
                        products.get(position).getPhone(),
                        products.get(position).getLocation(),
-                       //products.get(position).getImage(),
+                       products.get(position).getImageNumber(),
                        products.get(position).getCode());
                Intent intent = new Intent();
                intent.setClass(context,ActivityProduct.class);

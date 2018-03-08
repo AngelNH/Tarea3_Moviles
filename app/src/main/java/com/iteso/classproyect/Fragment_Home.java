@@ -34,8 +34,8 @@ public class Fragment_Home extends android.support.v4.app.Fragment {
 
         //ArrayList<ItemProduct> products = new ArrayList<>();
         products = new ArrayList<>();
-        products.add(new ItemProduct("KingBed, Sealy","Soriana San Isidro","+52 3323453422","Carretera Tesistan, Periferico Norte", getResources().getDrawable(R.drawable.cama),6));
-        products.add(new ItemProduct("Wissen Couch","Palacio de Hierro", "+52 3345632122","Av. Patria, Plaza Andares", getResources().getDrawable(R.drawable.sillon),7));
+        products.add(new ItemProduct("KingBed, Sealy","Soriana San Isidro","+52 3323453422","Carretera Tesistan, Periferico Norte", 3,6));
+        products.add(new ItemProduct("Wissen Couch","Palacio de Hierro", "+52 3345632122","Av. Patria, Plaza Andares", 4,7));
 
         adapter = new AdapterProduct(getActivity(), products,getContext());
         recyclerView.setAdapter(adapter);

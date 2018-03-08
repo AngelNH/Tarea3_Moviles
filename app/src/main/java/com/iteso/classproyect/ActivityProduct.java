@@ -33,17 +33,45 @@ public class ActivityProduct extends AppCompatActivity {
         save = findViewById(R.id.activity_product_save);
         cancel = findViewById(R.id.activity_product_cancel);
 
-        //obtain the extras of the intent.
-        if (getIntent().getExtras() != null){
-            item = getIntent().getParcelableExtra("ITEM");
-            if (item != null){
-                title.setText(item.getTitle());
-                store.setText(item.getStore());
-                location.setText(item.getLocation());
-                phone.setText(item.getPhone());
+        int a[] = {};
+        try {
+            //obtain the extras of the intent.
+            if (getIntent().getExtras() != null) {
+                item = getIntent().getParcelableExtra("ITEM");
+                if (item != null) {
+                    title.setText(item.getTitle());
+                    store.setText(item.getStore());
+                    location.setText(item.getLocation());
+                    phone.setText(item.getPhone());
+                    switch (item.getImageNumber()){
+                        case 0:
+                            image.setImageResource(R.drawable.mac);
+                            break;
+                        case 1:
+                            image.setImageResource(R.drawable.alienware);
+                            break;
+                        case 2:
+                            image.setImageResource(R.drawable.lanix);
+                            break;
+                        case 3:
+                            image.setImageResource(R.drawable.cama);
+                            break;
+                        case 4:
+                            image.setImageResource(R.drawable.sillon);
+                            break;
+                        case 5:
+                            image.setImageResource(R.drawable.estereo);
+                            break;
+                        case 6:
+                            image.setImageResource(R.drawable.lavadora);
+                            break;
+                        default:
+                            image.setImageResource(R.drawable.alienware);
+                            break;
+                    }
+                }
             }
-        }
-
+        }catch (Exception exe){}
         //set the click listener for each button.
         //case button save
         save.setOnClickListener(new View.OnClickListener() {
@@ -53,15 +81,16 @@ public class ActivityProduct extends AppCompatActivity {
                                         store.getText().toString(),
                                         location.getText().toString(),
                                         phone.getText().toString(),
-                                        item.getCode());//TODO with image
-                //Intent intent = new Intent();
-                //intent.putExtra("ITEM",item2);
-                //setResult(RESULT_OK,intent);
+                                        item.getImageNumber(),
+                                        item.getCode());
+                Intent intent = new Intent();
+                intent.putExtra("ITEM",item2);
+                setResult(RESULT_OK,intent);
                 finish();
             }
         });
         //case button cancel
-        save.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setResult(RESULT_CANCELED);

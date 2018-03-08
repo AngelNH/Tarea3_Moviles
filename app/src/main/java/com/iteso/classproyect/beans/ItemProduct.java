@@ -15,6 +15,7 @@ public class ItemProduct  implements Parcelable{
     private String phone;
     private String location;
     private Drawable image;
+    private int imageNumber;
 
     private int code;
 
@@ -26,12 +27,13 @@ public class ItemProduct  implements Parcelable{
         this.phone = phone;
 
     }
-    public ItemProduct(String title, String store,String phone, String location, Drawable image) {
+    public ItemProduct(String title, String store,String phone, String location, int imageNumber, int code) {
         this.title = title;
         this.store = store;
         this.location = location;
         this.phone = phone;
-        this.image = image;
+        this.imageNumber = imageNumber;
+        this.code = code;
 
     }
     public ItemProduct(String title, String store,String phone, String location, Drawable image, int code) {
@@ -56,6 +58,7 @@ public class ItemProduct  implements Parcelable{
         store = in.readString();
         location = in.readString();
         phone = in.readString();
+        imageNumber=in.readInt();
         code = in.readInt();
     }
     //Overide methods for the parcelable
@@ -70,6 +73,7 @@ public class ItemProduct  implements Parcelable{
         dest.writeString(store);
         dest.writeString(location);
         dest.writeString(phone);
+        dest.writeInt(imageNumber);
         dest.writeInt(code);
     }
 
@@ -92,6 +96,14 @@ public class ItemProduct  implements Parcelable{
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public int getImageNumber() {
+        return imageNumber;
+    }
+
+    public void setImageNumber(int imageNumber) {
+        this.imageNumber = imageNumber;
     }
 
     public String getLocation() {
