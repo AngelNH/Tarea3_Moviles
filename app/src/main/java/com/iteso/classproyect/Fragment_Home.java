@@ -1,7 +1,9 @@
 package com.iteso.classproyect;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,13 +15,11 @@ import com.iteso.classproyect.beans.ItemProduct;
 
 import java.util.ArrayList;
 
+public class Fragment_Home extends android.support.v4.app.Fragment {
+    public Fragment_Home(){
 
-public class Fragment_Electronics extends android.support.v4.app.Fragment {
-
-    public Fragment_Electronics() {
-        // Required empty public constructor
     }
-    ArrayList<ItemProduct> electronics;
+    ArrayList<ItemProduct> products;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         RecyclerView.Adapter adapter;
@@ -32,12 +32,12 @@ public class Fragment_Electronics extends android.support.v4.app.Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        //ArrayList<ItemProduct> electronics = new ArrayList<>();
-        electronics = new ArrayList<>();
-        electronics.add(new ItemProduct("Whirpool EasyWash","Liverpool","+52 4432435678","Plaza Galerías Guadalajara", getResources().getDrawable(R.drawable.lavadora),4));
-        electronics.add(new ItemProduct("Beats Stereo Plus","Fabricas de Francia", "+52 2343234567","La Gran Plaza Fashion Mall Guadalajara", getResources().getDrawable(R.drawable.estereo),5));
+        //ArrayList<ItemProduct> products = new ArrayList<>();
+        products = new ArrayList<>();
+        products.add(new ItemProduct("KingBed, Sealy","Soriana San Isidro","+52 3323453422","Carretera Tesistan, Periferico Norte", getResources().getDrawable(R.drawable.cama),6));
+        products.add(new ItemProduct("Wissen Couch","Palacio de Hierro", "+52 3345632122","Av. Patria, Plaza Andares", getResources().getDrawable(R.drawable.sillon),7));
 
-        adapter = new AdapterProduct(getActivity(), electronics,getContext());
+        adapter = new AdapterProduct(getActivity(), products,getContext());
         recyclerView.setAdapter(adapter);
         return view;
     }
@@ -46,11 +46,11 @@ public class Fragment_Electronics extends android.support.v4.app.Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode){
-            case 2222:
-                if (resultCode == Activity.RESULT_OK){
+            case 1111:
+                if (requestCode == Activity.RESULT_OK){
                     ItemProduct item = data.getParcelableExtra("ITEM");
                     if (item != null){
-                        electronics.add(item);//check this line.
+                        products.add(item);//check this line.
                     }
 
                 }

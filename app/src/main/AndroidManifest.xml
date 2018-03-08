@@ -19,9 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.DIAL"/>
+                <action android:name="android.intent.action.DIAL" />
             </intent-filter>
         </activity>
+        <activity android:name=".ActivityProduct"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.iteso.classproyect;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,7 +52,6 @@ public class Activity_main extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -61,17 +62,47 @@ public class Activity_main extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
     }
-
+    Fragment_Home fragmentHome;
+    Fragment_Technology fragmentTechnology;
+    Fragment_Electronics fragmentElectronics;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Activity_main.super.onActivityResult(requestCode, resultCode, data);
+        Log.e("RESULT","Entered the activity result");
+        switch (requestCode){
+            case 6://Home fragment
+            case 7:
+                if (resultCode == Activity.RESULT_OK) {
+                    ItemProduct item = data.getParcelableExtra("ITEM");
+                    if (item != null) {
+                        fragmentHome.onActivityResult(requestCode, resultCode, data);
+                    }
+                }
+                break;
+            case 4://Electronics fragment
+            case 5:
+                if (resultCode == Activity.RESULT_OK) {
+                    ItemProduct item = data.getParcelableExtra("ITEM");
+                    if (item != null) {
+                        fragmentElectronics.onActivityResult(requestCode, resultCode, data);
+                    }
+                }
+                break;
+            case 1:
+            case 2:
+            case 3:
+                if (resultCode == Activity.RESULT_OK) {
+                    Log.e("RESULT","Entered the case for the fragment technology");
+                    //ItemProduct item = data.getParcelableExtra("ITEM");
+                    //if (item != null) {
+                        fragmentTechnology.onActivityResult(requestCode, resultCode, data);
+                    //}
+                }
+                break;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,6 +151,8 @@ public class Activity_main extends AppCompatActivity {
             return fragment;
         }
 
+
+        ArrayList<ItemProduct> products;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -132,12 +165,12 @@ public class Activity_main extends AppCompatActivity {
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setLayoutManager(mLayoutManager);
 
-            ArrayList<ItemProduct> products = new ArrayList<>();
-            products.add(new ItemProduct("Mac", "BestBuy","Guadalajara", "3354657860", 1));
-            products.add(new ItemProduct("Alienware", "DELL", "Guadalajara", "3321234534", 2));
-            products.add(new ItemProduct("Lanix", "Saint Jhonny", "Zapopan", "3244345676", 3));
+            products  = new ArrayList<>();
+            //products.add(new ItemProduct("Mac", "BestBuy","Guadalajara", "3354657860", 1));
+            //products.add(new ItemProduct("Alienware", "DELL", "Guadalajara", "3321234534", 2));
+            //products.add(new ItemProduct("Lanix", "Saint Jhonny", "Zapopan", "3244345676", 3));
 
-            AdapterProduct adapterProduct = new AdapterProduct(products);
+            AdapterProduct adapterProduct = new AdapterProduct(getActivity(),products,this.getContext());
             recyclerView.setAdapter(adapterProduct);
 
             return rootView;
@@ -158,7 +191,12 @@ public class Activity_main extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position){
+                case 0: return new Fragment_Technology();
+                case 1: return new Fragment_Home();
+                case 2: return new Fragment_Electronics();
+                default: return new Fragment_Technology();
+            }
         }
 
         @Override
@@ -177,7 +215,9 @@ public class Activity_main extends AppCompatActivity {
             return null;
         }
 
-        public void onClickCard (View v){
+
+
+        public void onClickPhoneCard (View v){
             Intent intent = new Intent();
             intent.setAction("android.intent.action.DIAL");
             intent.putExtra("PHONE","3318275480");

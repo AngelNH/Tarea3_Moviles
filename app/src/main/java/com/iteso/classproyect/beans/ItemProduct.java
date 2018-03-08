@@ -1,24 +1,97 @@
 package com.iteso.classproyect.beans;
 
+import android.content.ClipData;
+import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by inqui on 26/02/2018.
  */
 
-public class ItemProduct {
+public class ItemProduct  implements Parcelable{
     private String title;
     private String store;
-    private String location;
     private String phone;
-    private int image;
+    private String location;
+    private Drawable image;
+
+    private int code;
 
 
-    public ItemProduct(String title, String store, String location, String phone, int image) {
+    public ItemProduct(String title, String store,String phone, String location) {
+        this.title = title;
+        this.store = store;
+        this.location = location;
+        this.phone = phone;
+
+    }
+    public ItemProduct(String title, String store,String phone, String location, Drawable image) {
         this.title = title;
         this.store = store;
         this.location = location;
         this.phone = phone;
         this.image = image;
 
+    }
+    public ItemProduct(String title, String store,String phone, String location, Drawable image, int code) {
+        this.title = title;
+        this.store = store;
+        this.location = location;
+        this.phone = phone;
+        this.image = image;
+        this.code = code;
+
+    }
+    public ItemProduct(String title, String store,String phone, String location, int code) {
+        this.title = title;
+        this.store = store;
+        this.location = location;
+        this.phone = phone;
+        this.code = code;
+
+    }
+    public ItemProduct(Parcel in){
+        title = in.readString();
+        store = in.readString();
+        location = in.readString();
+        phone = in.readString();
+        code = in.readInt();
+    }
+    //Overide methods for the parcelable
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(store);
+        dest.writeString(location);
+        dest.writeString(phone);
+        dest.writeInt(code);
+    }
+
+    public static final Parcelable.Creator<ItemProduct> CREATOR =
+            new Parcelable.Creator<ItemProduct>(){
+                @Override
+                public ItemProduct createFromParcel(Parcel source) {
+                    return new ItemProduct(source);
+                }
+
+                @Override
+                public ItemProduct[] newArray(int size) {
+                    return new ItemProduct[size];
+                }
+            };
+    //**********************************
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getLocation() {
@@ -37,11 +110,11 @@ public class ItemProduct {
         this.phone = phone;
     }
 
-    public int getImage() {
+    public Drawable getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(Drawable image) {
         this.image = image;
     }
 

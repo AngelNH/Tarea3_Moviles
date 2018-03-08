@@ -6,8 +6,7 @@
                                     android:layout_height="320dp"
                                     android:layout_margin="5dp"
                                     android:scrollbarStyle="outsideOverlay"
-                                    card_view:cardCornerRadius="4dp"
-                                    android:onClick="onClickCard">
+                                    card_view:cardCornerRadius="4dp">
 
     <RelativeLayout
         android:id="@+id/item_product_layout"
@@ -19,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:contentDescription="@string/app_name"
-            android:scaleType="centerInside"
-            android:src="@drawable/mac"/>
+            android:scaleType="centerInside"/>
 
         <TextView
             android:id="@+id/item_product_title"
@@ -79,7 +77,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:onClick="onClickPhoneCall"/>
 
             </LinearLayout>
 

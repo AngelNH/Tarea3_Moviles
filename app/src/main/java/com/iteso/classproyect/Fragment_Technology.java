@@ -1,108 +1,73 @@
 package com.iteso.classproyect;
 
-import android.content.Context;
-import android.net.Uri;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.iteso.classproyect.beans.ItemProduct;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Fragment_Technology.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Fragment_Technology#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Fragment_Technology extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
+import java.util.Iterator;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+public class Fragment_Technology extends android.support.v4.app.Fragment {
+
 
     public Fragment_Technology() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_Technology.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Fragment_Technology newInstance(String param1, String param2) {
-        Fragment_Technology fragment = new Fragment_Technology();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
+    ArrayList<ItemProduct> products;
+    RecyclerView.Adapter adapter;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_technology, container, false);
-    }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
+        RecyclerView.LayoutManager mLayoutManager;
+
+        View view = inflater.inflate(R.layout.fragment_technology, container, false);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.fragment_recycler_view);
+
+        recyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        //ArrayList<ItemProduct> products = new ArrayList<ItemProduct>();
+        products = new ArrayList<>();
+        products.add(new ItemProduct("Mac", "BestBuy", "+52 3334564759", "Best Buy Plaza Ciudadela ", getResources().getDrawable(R.drawable.mac),1));
+        products.add(new ItemProduct("AlienWare de Miguel", "DELL", "+52 3318275480", "DELL, Punto de Venta zapopan", getResources().getDrawable(R.drawable.alienware),2));
+        products.add(new ItemProduct("Lanix", "Saint Johny", "+52 3321349087", "Mercado San Juan de Dios, Punto de venta", getResources().getDrawable(R.drawable.lanix),3));
+
+
+        adapter = new AdapterProduct(getActivity(), products,getContext());
+        recyclerView.setAdapter(adapter);
+        return view;
+    }
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ItemProduct itprod;
+
+        ItemProduct item = data.getParcelableExtra("ITEM");
+
+        Iterator<ItemProduct> ite = this.products.iterator();
+        int i = 0;
+        Log.e("RESULT","Entered the technology activityresult.");
+        while (ite.hasNext()){
+            itprod = ite.next();
+            if (itprod.getCode() == item.getCode()){
+                products.set(i,item);
+                Log.e("RESULT","the product is set"+i+" code: "+item.getCode());
+                break;
+            }
+            i++;
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        adapter.notifyDataSetChanged();
+        //products.add(item);//check this line.
     }
 }
