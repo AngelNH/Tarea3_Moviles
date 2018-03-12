@@ -2,6 +2,8 @@ package com.iteso.classproyect;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -81,7 +83,23 @@ public class Activity_main extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_logout) {
+            SharedPreferences sharedPreferences = getSharedPreferences("com.iteso.USER_PREFERENCES",MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.apply();
+
+            Intent intent = new Intent(Activity_main.this,ActivityLogin.class);
+            //for cleaning all stack of the activities
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);//clean all stack, but remain the new task.
+            startActivity(intent);
+            finish();
+
+            return true;
+        }
+        else if(id == R.id.menu_privacy){
+            Intent intent = new Intent(Activity_main.this,ActivityPrivacyPolicy.class);
+            startActivity(intent);
             return true;
         }
 
