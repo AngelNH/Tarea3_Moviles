@@ -7,4 +7,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <array name="spinner_image">
+        <item>Mac</item>
+        <item>Alienware</item>
+        <item>Lanix</item>
+        <item>Cama</item>
+        <item>Sillon</item>
+        <item>Estereo</item>
+        <item>Lavadora</item>
+    </array>
 </resources>

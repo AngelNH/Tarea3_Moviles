@@ -11,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.iteso.classproyect.beans.ItemProduct;
+import com.iteso.classproyect.database.DataBaseHandler;
+import com.iteso.classproyect.database.ItemProductControl;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
+//CATEGORY 3
 public class Fragment_Technology extends android.support.v4.app.Fragment {
 
 
@@ -39,15 +41,21 @@ public class Fragment_Technology extends android.support.v4.app.Fragment {
 
         //ArrayList<ItemProduct> products = new ArrayList<ItemProduct>();
         products = new ArrayList<>();
+        /*
         products.add(new ItemProduct("Mac", "BestBuy", "+52 3334564759", "Best Buy Plaza Ciudadela ", 0,1));
         products.add(new ItemProduct("AlienWare de Miguel", "DELL", "+52 3318275480", "DELL, Punto de Venta zapopan", 1,2));
         products.add(new ItemProduct("Lanix", "Saint Johny", "+52 3321349087", "Mercado San Juan de Dios, Punto de venta", 2,3));
-
-
+        */
+        //-----------------------------------------------------
+        ItemProductControl control = new ItemProductControl();
+        DataBaseHandler dh = DataBaseHandler.getInstance(getActivity());
+        products = control.getItemProductsByCategory(3,dh);
+        //-----------------------------------------------------
         adapter = new AdapterProduct(getActivity(), products,getContext());
         recyclerView.setAdapter(adapter);
         return view;
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

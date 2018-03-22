@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.iteso.classproyect.beans.ItemProduct;
+import com.iteso.classproyect.database.DataBaseHandler;
+import com.iteso.classproyect.database.ItemProductControl;
 
 import java.util.ArrayList;
 
-
+//CATEGORY 1
 public class Fragment_Electronics extends android.support.v4.app.Fragment {
 
     public Fragment_Electronics() {
@@ -33,9 +35,20 @@ public class Fragment_Electronics extends android.support.v4.app.Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
 
         //ArrayList<ItemProduct> electronics = new ArrayList<>();
+        //*********************************************************
+        /*
         electronics = new ArrayList<>();
         electronics.add(new ItemProduct("Whirpool EasyWash","Liverpool","+52 4432435678","Plaza Galerías Guadalajara", 6,4));
         electronics.add(new ItemProduct("Beats Stereo Plus","Fabricas de Francia", "+52 2343234567","La Gran Plaza Fashion Mall Guadalajara", 5,5));
+        */
+        //************************************************************
+        //-----------------------------------------------------------
+        ItemProductControl control = new ItemProductControl();
+        DataBaseHandler dh = DataBaseHandler.getInstance(getActivity());
+        electronics = control.getItemProductsByCategory(1,dh);
+
+        //-----------------------------------------------------------
+
 
         adapter = new AdapterProduct(getActivity(), electronics,getContext());
         recyclerView.setAdapter(adapter);

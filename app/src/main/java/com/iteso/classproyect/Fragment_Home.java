@@ -12,9 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.iteso.classproyect.beans.ItemProduct;
+import com.iteso.classproyect.database.DataBaseHandler;
+import com.iteso.classproyect.database.ItemProductControl;
 
 import java.util.ArrayList;
 
+
+//CATEGORY 2
 public class Fragment_Home extends android.support.v4.app.Fragment {
     public Fragment_Home(){
 
@@ -33,9 +37,16 @@ public class Fragment_Home extends android.support.v4.app.Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
 
         //ArrayList<ItemProduct> products = new ArrayList<>();
+        /*
         products = new ArrayList<>();
         products.add(new ItemProduct("KingBed, Sealy","Soriana San Isidro","+52 3323453422","Carretera Tesistan, Periferico Norte", 3,6));
         products.add(new ItemProduct("Wissen Couch","Palacio de Hierro", "+52 3345632122","Av. Patria, Plaza Andares", 4,7));
+        */
+        //-----------------------------------------------------
+        ItemProductControl control = new ItemProductControl();
+        DataBaseHandler dh = DataBaseHandler.getInstance(getActivity());
+        products = control.getItemProductsByCategory(2,dh);
+        //-----------------------------------------------------
 
         adapter = new AdapterProduct(getActivity(), products,getContext());
         recyclerView.setAdapter(adapter);

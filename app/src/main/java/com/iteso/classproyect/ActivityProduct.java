@@ -40,9 +40,9 @@ public class ActivityProduct extends AppCompatActivity {
                 item = getIntent().getParcelableExtra("ITEM");
                 if (item != null) {
                     title.setText(item.getTitle());
-                    store.setText(item.getStore());
-                    location.setText(item.getLocation());
-                    phone.setText(item.getPhone());
+                    store.setText(item.getStore().getName());
+                    location.setText(item.getStore().getCity().getName());
+                    phone.setText(item.getStore().getPhone());
                     switch (item.getImageNumber()){
                         case 0:
                             image.setImageResource(R.drawable.mac);
@@ -77,12 +77,15 @@ public class ActivityProduct extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                item2 = new ItemProduct(title.getText().toString(),
-                                        store.getText().toString(),
-                                        location.getText().toString(),
-                                        phone.getText().toString(),
+                item2 = new ItemProduct(
+                                        item.getCode(),
+                                        title.getText().toString(),
+                                        item.getDescription(),
                                         item.getImageNumber(),
-                                        item.getCode());
+                                        item.getStore(),
+                                        item.getCategory());
+
+
                 Intent intent = new Intent();
                 intent.putExtra("ITEM",item2);
                 setResult(RESULT_OK,intent);

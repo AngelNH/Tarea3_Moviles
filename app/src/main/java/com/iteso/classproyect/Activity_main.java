@@ -32,6 +32,8 @@ import java.util.ArrayList;
 
 public class Activity_main extends AppCompatActivity {
 
+    FloatingActionButton add;
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -63,6 +65,17 @@ public class Activity_main extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
+
+        add = findViewById(R.id.activity_main_floating);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Activity_main.this,ActivityItem.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
     }
@@ -146,9 +159,6 @@ public class Activity_main extends AppCompatActivity {
             recyclerView.setLayoutManager(mLayoutManager);
 
             products  = new ArrayList<>();
-            //products.add(new ItemProduct("Mac", "BestBuy","Guadalajara", "3354657860", 1));
-            //products.add(new ItemProduct("Alienware", "DELL", "Guadalajara", "3321234534", 2));
-            //products.add(new ItemProduct("Lanix", "Saint Jhonny", "Zapopan", "3244345676", 3));
 
             AdapterProduct adapterProduct = new AdapterProduct(getActivity(),products,this.getContext());
             recyclerView.setAdapter(adapterProduct);
